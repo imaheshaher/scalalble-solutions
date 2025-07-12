@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hybrid Real-Time Update Strategy</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            line-height: 1.6;
+            color: #333;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            border-bottom: 1px solid #eaecef;
+            padding-bottom: 0.3em;
+        }
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: #f6f8fa;
+            padding: 0.2em 0.4em;
+            margin: 0;
+            font-size: 85%;
+            border-radius: 3px;
+        }
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            overflow: auto;
+            border-radius: 3px;
+        }
+        pre code {
+            padding: 0;
+            margin: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        .mermaid {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hybrid Real-Time Update Strategy for CRM</h1>
+
+    <h2>🎯 Problem Statement</h2>
+    <p>In the current CRM system, ticket assignments and updates require a manual page refresh to reflect changes. This leads to a disjointed user experience, where users may not have the most up-to-date information without manual intervention. The goal is to implement a real-time data sync mechanism so that users can see updates (like ticket assignments) instantly without reloading the page.</p>
+
+    <h2>✅ Chosen Strategy: Hybrid Real-Time Update</h2>
+    <p>We will use a hybrid approach that leverages both <strong>WebSockets</strong> for event signaling and <strong>REST APIs</strong> for data fetching. This strategy provides a scalable, clean, and production-friendly solution that balances real-time capabilities with system stability.</p>
+
+    <h3>Why a Hybrid Approach?</h3>
+    <ul>
+        <li><strong>Scalability</strong>: WebSockets are used for lightweight signals, not for sending large data payloads. This reduces the load on the WebSocket server and makes it easier to scale.</li>
+        <li><strong>Data Consistency</strong>: The REST API remains the single source of truth for data. This avoids data duplication and ensures that the client always fetches the most up-to-date information.</li>
+        <li><strong>Simplicity</strong>: It separates the real-time signaling logic from the data-fetching logic, making the system easier to develop, debug, and maintain.</li>
+        <li><strong>Robustness</strong>: If the WebSocket connection fails, the application can fall back to traditional polling or manual refreshes without breaking the core functionality.</li>
+    </ul>
+
+    <hr>
+
+    <h2>📊 System Architecture Diagram</h2>
+    <p>Here is a diagram illustrating the flow of information in the hybrid real-time update system:</p>
+    <div class="mermaid">
+        sequenceDiagram
+            participant ClientA as Client A (Assigner)
+            participant ClientB as Client B (Assignee)
+            participant Server
+            participant WebSocketServer as WebSocket Server
+            participant Database
+
+            Note over ClientA, Server: User assigns a ticket
+
+            ClientA->>+Server: POST /api/tickets/{id}/assign (assigneeId: 'userB')
+            Server->>+Database: UPDATE tickets SET assigneeId = 'userB' WHERE id = {id}
+            Database-->>-Server: Update successful
+            Server->>-WebSocketServer: EMIT 'ticket_updated' (ticketId: {id}, assigneeId: 'userB')
+            Server-->>ClientA: HTTP 200 OK (Ticket assigned)
+
+            Note over WebSocketServer, ClientB: WebSocket server pushes event to relevant clients
+
+            WebSocketServer-->>ClientB: RECEIVE 'ticket_updated' (ticketId: {id})
+
+            Note over ClientB, Server: Client B fetches the updated ticket data
+
+            ClientB->>+Server: GET /api/tickets/{id}
+            Server->>+Database: SELECT * FROM tickets WHERE id = {id}
+            Database-->>-Server: Return ticket data
+            Server-->>-ClientB: HTTP 200 OK (Full ticket data)
+
+            Note over ClientB: Client B's UI is updated with the new data
+    </div>
+
+    <hr>
+
+    <h2>📝 Real-Time Example: Ticket Assignment</h2>
+    <p>Let's walk through a real-world scenario of a ticket being assigned to a support agent.</p>
+    <p><strong>Scenario</strong>: A manager assigns a new high-priority ticket to an agent. The agent should see this new ticket appear on their dashboard instantly.</p>
+
+    <h3>Step-by-Step Flow:</h3>
+    <ol>
+        <li><strong>Manager Assigns Ticket (Client A)</strong>:
+            <ul>
+                <li>The manager is on the CRM dashboard and assigns "Ticket #123" to "Agent Smith".</li>
+                <li>The frontend application sends a <code>POST</code> or <code>PUT</code> request to the server.
+<pre><code>POST /api/tickets/123/assign
+Content-Type: application/json
+
+{
+  "assigneeId": "agent-smith-id"
+}
+</code></pre>
+                </li>
+            </ul>
+        </li>
+        <li><strong>Server Processes the Request</strong>:
+            <ul>
+                <li>The server receives the request and validates it (e.g., checks permissions).</li>
+                <li>It updates the ticket's <code>assigneeId</code> in the database.
+<pre><code>UPDATE tickets SET assigneeId = 'agent-smith-id' WHERE id = 123;
+</code></pre>
+                </li>
+            </ul>
+        </li>
+        <li><strong>Server Emits a WebSocket Event</strong>:
+            <ul>
+                <li>After successfully updating the database, the server connects to the WebSocket server and emits a lightweight event.</li>
+                <li>This event does not contain the full ticket data, only a signal that something has changed. The event is broadcasted to a specific room or channel that "Agent Smith" is subscribed to.
+<pre><code class="language-javascript">// Example using Socket.IO on the server
+io.to('user_room:agent-smith-id').emit('ticket_updated', {
+  ticketId: 123,
+  message: "A ticket has been assigned to you."
+});
+</code></pre>
+                </li>
+            </ul>
+        </li>
+        <li><strong>Agent Receives the Event (Client B)</strong>:
+            <ul>
+                <li>"Agent Smith" is on their dashboard, and their client application is listening for WebSocket events.</li>
+                <li>The client receives the <code>ticket_updated</code> event.</li>
+            </ul>
+        </li>
+        <li><strong>Agent's Client Fetches Full Data</strong>:
+            <ul>
+                <li>Upon receiving the event, the client knows that "Ticket #123" has been updated.</li>
+                <li>It then makes a standard REST API call to fetch the complete, up-to-date details for that ticket.
+<pre><code>GET /api/tickets/123
+</code></pre>
+                </li>
+            </ul>
+        </li>
+        <li><strong>UI is Updated</strong>:
+            <ul>
+                <li>The server responds with the full ticket data, including the new assignment, status, and other details.</li>
+                <li>The client application uses this data to update the UI in real-time. "Agent Smith" sees "Ticket #123" appear on their "My Open Tickets" list without ever hitting the refresh button.</li>
+            </ul>
+        </li>
+    </ol>
+
+    <hr>
+
+    <h2>🚀 Implementation Considerations</h2>
+
+    <h3>Backend (NestJS Example)</h3>
+    <ul>
+        <li><strong>WebSocket Gateway</strong>: Use NestJS's <code>@WebSocketGateway()</code> to handle WebSocket connections and events.</li>
+        <li><strong>Rooms/Channels</strong>: To ensure that only relevant clients receive updates, use rooms. A user should join a room specific to them upon authentication (e.g., <code>user_room:<userId></code>).</li>
+        <li><strong>Service Integration</strong>: Inject the WebSocket gateway into your services (e.g., <code>TicketService</code>) to emit events after database operations.</li>
+    </ul>
+<pre><code class="language-typescript">// src/modules/ticket/ticket.service.ts
+import { Injectable } from '@nestjs/common';
+import { AppGateway } from '../../gateway/app.gateway'; // Your WebSocket gateway
+
+@Injectable()
+export class TicketService {
+  constructor(private readonly appGateway: AppGateway) {}
+
+  async assignTicket(ticketId: string, assigneeId: string): Promise<void> {
+    // 1. Database logic to assign the ticket
+    // ...
+
+    // 2. Emit a WebSocket event to the assignee
+    this.appGateway.server.to(`user_room:${assigneeId}`).emit('ticket_updated', {
+      ticketId,
+      message: `Ticket ${ticketId} has been assigned to you.`,
+    });
+  }
+}
+</code></pre>
+
+    <h3>Frontend (React Example)</h3>
+    <ul>
+        <li><strong>WebSocket Client</strong>: Use a library like <code>socket.io-client</code> to connect to the WebSocket server.</li>
+        <li><strong>State Management</strong>: Use a state management library (like Redux, Zustand, or React Query) to handle data fetching and UI updates.</li>
+        <li><strong>Event Listeners</strong>: Set up event listeners to react to incoming WebSocket messages and trigger data refetches.</li>
+    </ul>
+<pre><code class="language-javascript">// Example using React Query and Socket.IO
+import { useQueryClient } from 'react-query';
+import socket from './socket'; // Your configured socket.io client
+
+function useTicketRealtimeUpdates() {
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    // Listen for ticket update events
+    socket.on('ticket_updated', (data) => {
+      console.log(data.message);
+      // Invalidate the query for the specific ticket, which will trigger a refetch
+      queryClient.invalidateQueries(['ticket', data.ticketId]);
+      // Or invalidate a list of tickets
+      queryClient.invalidateQueries('tickets');
+    });
+
+    return () => {
+      socket.off('ticket_updated');
+    };
+  }, [queryClient]);
+}
+</code></pre>
+    <p>This hybrid approach ensures a responsive, scalable, and maintainable real-time system that enhances the user experience without over-complicating the architecture.</p>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>
