@@ -464,20 +464,34 @@
       });
     });
 
-    // Animate skill bars on scroll
+    // Improved skill bar animation function
+    function animateSkillBars() {
+      const skillBars = document.querySelectorAll('.skill-progress');
+      skillBars.forEach(bar => {
+        const width = bar.getAttribute('data-width');
+        // Reset width first to ensure animation works properly on mobile
+        bar.style.width = '0';
+        // Force reflow to ensure the reset is applied before animation
+        void bar.offsetWidth;
+        // Apply the width with a slight delay to ensure animation triggers
+        setTimeout(() => {
+          bar.style.width = width;
+        }, 50);
+      });
+    }
+
+    // Animate skill bars on scroll with improved mobile support
     const observerOptions = {
-      threshold: 0.5,
-      rootMargin: '0px 0px -100px 0px'
+      threshold: 0.2, // Lower threshold to trigger earlier
+      rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const skillBars = entry.target.querySelectorAll('.skill-progress');
-          skillBars.forEach(bar => {
-            const width = bar.getAttribute('data-width');
-            bar.style.width = width;
-          });
+          animateSkillBars();
+          // Unobserve after animation to prevent potential issues
+          observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
@@ -486,6 +500,14 @@
     if (skillsSection) {
       observer.observe(skillsSection);
     }
+
+    // Also trigger animation on page load if skills section is already visible
+    document.addEventListener('DOMContentLoaded', () => {
+      const skillsRect = skillsSection?.getBoundingClientRect();
+      if (skillsRect && skillsRect.top < window.innerHeight) {
+        animateSkillBars();
+      }
+    });
 
     // Add scroll effect to navigation
     window.addEventListener('scroll', () => {
@@ -506,6 +528,7 @@
         contactForm.reset();
       });
     }
-  </script>
+</script>
+
 </body>
 </html>
