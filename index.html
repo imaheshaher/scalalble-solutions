@@ -3,150 +3,617 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scalable System Design Solutions</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Mahesh Aher | System Design Solutions</title>
+    <meta name="description" content="Scalable system design solutions and documentation by Mahesh Aher, Senior Software Engineer specializing in distributed systems and cloud architecture.">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #3498db;
             --background-color: #ecf0f1;
             --text-color: #34495e;
+            --text-secondary: #7f8c8d;
             --card-bg-color: #ffffff;
             --header-bg-color: #34495e;
             --header-text-color: #ffffff;
             --link-color: #3498db;
             --link-hover-color: #2980b9;
             --border-color: #dcdfe2;
+            --border-light: #e8ecef;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --border-radius-sm: 5px;
+            --transition: all 0.3s ease;
         }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--background-color);
             margin: 0;
         }
+
         .container {
-            max-width: 960px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1001;
+            background: var(--card-bg-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 0.75rem;
+            box-shadow: var(--shadow-md);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 1.5rem;
+            height: 2px;
+            background: var(--text-color);
+            margin: 0.25rem 0;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
         header {
             background: var(--header-bg-color);
             color: var(--header-text-color);
-            padding: 20px 0;
+            padding: 2rem 0;
             border-bottom: 5px solid var(--secondary-color);
+            position: relative;
         }
+
         header .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
+
         header h1 {
             margin: 0;
-            font-size: 2rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--header-text-color);
         }
+
+        header nav {
+            display: flex;
+            gap: 1rem;
+        }
+
         header nav a {
             color: var(--header-text-color);
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 500;
             font-size: 1.1rem;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition);
+            background: var(--secondary-color);
         }
+
         header nav a:hover {
-            background-color: var(--secondary-color);
+            background: var(--link-hover-color);
+            transform: translateY(-2px);
         }
+
+        .intro-section {
+            background: var(--card-bg-color);
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+        }
+
+        .intro-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .intro-content h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .intro-content p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
         .main-content {
-            padding: 40px 0;
+            padding: 2rem 0;
         }
+
         .main-content h2 {
             text-align: center;
             font-size: 2.5rem;
-            margin-bottom: 40px;
+            margin-bottom: 3rem;
             color: var(--primary-color);
             position: relative;
+            font-weight: 700;
         }
+
         .main-content h2::after {
             content: '';
             display: block;
             width: 80px;
             height: 4px;
             background: var(--secondary-color);
-            margin: 10px auto 0;
+            margin: 1rem auto 0;
+            border-radius: 2px;
         }
+
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
+
         .card {
             background: var(--card-bg-color);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--link-hover-color));
+        }
+
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-lg);
         }
+
         .card h3 {
             margin-top: 0;
-            color: var(--secondary-color);
-            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
         }
+
         .card a {
             text-decoration: none;
             color: inherit;
+            display: block;
+            height: 100%;
         }
+
         .card p {
             margin-bottom: 0;
-            color: var(--text-color);
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
+
+        .card-meta {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-light);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: var(--border-light);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
         footer {
             background: var(--header-bg-color);
             color: var(--header-text-color);
             text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            header h1 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            header nav {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            header nav a {
+                text-align: center;
+                width: 100%;
+            }
+
+            .intro-section {
+                margin: 1rem;
+                padding: 2rem 1rem;
+            }
+
+            .main-content {
+                padding: 1rem 0;
+            }
+
+            .main-content h2 {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin: 0 1rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .intro-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .intro-content p {
+                font-size: 1rem;
+            }
+
+            .main-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .card h3 {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Animation for cards */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        /* Focus styles for accessibility */
+        a:focus,
+        button:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
     <header>
         <div class="container">
             <h1>System Design Solutions</h1>
             <nav>
-                <a href="portfolio.html">View My Portfolio</a>
+                <a href="portfolio-final.html">View My Portfolio</a>
+                <a href="#solutions">Browse Solutions</a>
             </nav>
         </div>
     </header>
 
-    <div class="container main-content">
-        <h2>Available Topics</h2>
-        <div class="card-grid">
-            <div class="card">
-                <a href="documentation/hybrid-real-time-updates.html">
-                    <h3>Hybrid Real-Time Update Strategy for CRM</h3>
-                    <p>An approach for implementing real-time data sync using a hybrid of WebSockets and REST APIs to ensure a responsive user experience.</p>
-                </a>
+    <div class="container">
+        <section class="intro-section">
+            <div class="intro-content">
+                <h2>Scalable System Architecture & Design Patterns</h2>
+                <p>
+                    Welcome to my collection of system design solutions and architectural patterns. 
+                    As a Senior Software Engineer, I've documented real-world implementations of scalable systems, 
+                    distributed architectures, and performance optimization strategies that have been battle-tested in production environments.
+                </p>
             </div>
-            <div class="card">
-                <a href="documentation/notification-system.html">
-                    <h3>Complete Notification System Documentation</h3>
-                    <p>A high-performance, scalable notification system with targeted delivery, batching, and queue-based processing.</p>
-                </a>
+        </section>
+
+        <main class="main-content" id="solutions">
+            <h2>Featured Solutions</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <a href="documentation/hybrid-real-time-updates.html">
+                        <h3>Hybrid Real-Time Update Strategy for CRM</h3>
+                        <p>An innovative approach for implementing real-time data synchronization using a hybrid combination of WebSockets and REST APIs to ensure optimal user experience and system reliability.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">WebSockets</span>
+                            <span class="tech-tag">REST API</span>
+                            <span class="tech-tag">Real-time</span>
+                            <span class="tech-tag">CRM</span>
+                        </div>
+                        <div class="card-meta">
+                            System Design • Performance Optimization
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="card">
+                    <a href="documentation/notification-system.html">
+                        <h3>Complete Notification System Documentation</h3>
+                        <p>A comprehensive guide to building a high-performance, scalable notification system with targeted delivery, intelligent batching, and robust queue-based processing for enterprise applications.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Message Queues</span>
+                            <span class="tech-tag">Microservices</span>
+                            <span class="tech-tag">Scalability</span>
+                            <span class="tech-tag">Performance</span>
+                        </div>
+                        <div class="card-meta">
+                            Distributed Systems • Message Processing
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card">
+                    <a href="#" onclick="alert('Coming Soon! This documentation is currently being prepared.')">
+                        <h3>Microservices Architecture with Kafka</h3>
+                        <p>Design patterns and implementation strategies for building resilient microservices using Apache Kafka for event-driven communication and data streaming.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Apache Kafka</span>
+                            <span class="tech-tag">Microservices</span>
+                            <span class="tech-tag">Event Streaming</span>
+                            <span class="tech-tag">Distributed Systems</span>
+                        </div>
+                        <div class="card-meta">
+                            Coming Soon • Event-Driven Architecture
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card">
+                    <a href="#" onclick="alert('Coming Soon! This documentation is currently being prepared.')">
+                        <h3>AWS Cloud Infrastructure Patterns</h3>
+                        <p>Best practices and architectural patterns for deploying scalable applications on AWS, including auto-scaling, load balancing, and disaster recovery strategies.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">AWS</span>
+                            <span class="tech-tag">Cloud Architecture</span>
+                            <span class="tech-tag">Auto-scaling</span>
+                            <span class="tech-tag">DevOps</span>
+                        </div>
+                        <div class="card-meta">
+                            Coming Soon • Cloud Infrastructure
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card">
+                    <a href="#" onclick="alert('Coming Soon! This documentation is currently being prepared.')">
+                        <h3>Database Optimization & Caching Strategies</h3>
+                        <p>Advanced techniques for database performance optimization, including indexing strategies, query optimization, and multi-level caching implementations.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Database</span>
+                            <span class="tech-tag">Redis</span>
+                            <span class="tech-tag">Performance</span>
+                            <span class="tech-tag">Optimization</span>
+                        </div>
+                        <div class="card-meta">
+                            Coming Soon • Database Performance
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card">
+                    <a href="#" onclick="alert('Coming Soon! This documentation is currently being prepared.')">
+                        <h3>Container Orchestration with Kubernetes</h3>
+                        <p>Complete guide to deploying and managing containerized applications using Kubernetes, including service mesh, monitoring, and CI/CD integration.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Kubernetes</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Container Orchestration</span>
+                            <span class="tech-tag">DevOps</span>
+                        </div>
+                        <div class="card-meta">
+                            Coming Soon • Container Management
+                        </div>
+                    </a>
+                </div>
             </div>
-            <!-- Add more cards here as new solutions are documented -->
-        </div>
+        </main>
     </div>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Mahesh Aher | All Rights Reserved</p>
+            <div class="footer-content">
+                <p>&copy; 2025 Mahesh Aher | All Rights Reserved</p>
+                <div class="footer-links">
+                    <a href="portfolio-final.html">Portfolio</a>
+                    <a href="#solutions">Solutions</a>
+                    <a href="mailto:maheshaher035@gmail.com">Contact</a>
+                </div>
+            </div>
         </div>
     </footer>
+
+    <script>
+        // Mobile menu toggle functionality
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const nav = document.querySelector('header nav');
+
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', () => {
+                nav.classList.toggle('active');
+                mobileMenuToggle.classList.toggle('active');
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add loading animation to cards
+        const cards = document.querySelectorAll('.card');
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        cards.forEach(card => {
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>

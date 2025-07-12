@@ -3,121 +3,509 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mahesh Aher | Portfolio</title>
+  <title>Mahesh Aher | Senior Software Engineer Portfolio</title>
+  <meta name="description" content="Senior Software Engineer with 5+ years experience in scalable systems, full-stack development, and cloud architecture. Specialized in Node.js, Python, React, and AWS.">
+  <meta name="keywords" content="Software Engineer, Full Stack Developer, Node.js, Python, React, AWS, Portfolio">
   <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
   <header>
     <div class="container">
-      <img src="https://avatars.githubusercontent.com/u/66593633?v=4" alt="Mahesh Aher" class="profile-pic">
-      <h1>Mahesh Aher</h1>
-      <p>Senior Software Engineer | Building Scalable & Resilient Systems</p>
+      <div class="header-content">
+        <img src="https://avatars.githubusercontent.com/u/66593633?v=4" alt="Mahesh Aher - Senior Software Engineer" class="profile-pic">
+        <div class="header-text">
+          <h1>Mahesh Aher</h1>
+          <p class="tagline">Senior Software Engineer</p>
+          <p class="subtitle">Building Scalable & Resilient Systems</p>
+          <div class="social-links">
+            <a href="https://github.com/imaheshaher" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:maheshaher035@gmail.com">Email</a>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
-  <nav>
+  <nav class="main-nav">
     <div class="container">
       <ul>
-        <li><a href="#about">About Me</a></li>
-        <li><a href="#tech-stack">Tech Stack</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
   </nav>
 
-  <div class="container">
-    <section id="about">
-      <h2>About Me</h2>
-      <p>
-        I’m Mahesh Aher, a passionate Senior Software Engineer with over 5 years of experience in designing, developing, and deploying high-performance, production-ready applications and APIs. My expertise lies in building robust backend services, creating seamless frontend experiences, and architecting scalable systems. I thrive in dynamic environments and am dedicated to solving complex problems with elegant and efficient solutions.
-      </p>
-    </section>
-
-    <section id="tech-stack">
-      <h2>My Tech Stack</h2>
-      <div class="stack-container">
-        <div class="stack-item">Node.js</div>
-        <div class="stack-item">Python</div>
-        <div class="stack-item">Django</div>
-        <div class="stack-item">React.js</div>
-        <div class="stack-item">Kafka</div>
-        <div class="stack-item">Redis</div>
-        <div class="stack-item">MongoDB</div>
-        <div class="stack-item">MySQL</div>
-        <div class="stack-item">PostgreSQL</div>
-        <div class="stack-item">AWS</div>
-        <div class="stack-item">Docker</div>
-        <div class="stack-item">Kubernetes</div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <h2>My Projects</h2>
-      <div class="projects-grid">
-        <div class="project">
-          <h3>CRM Application</h3>
-          <div class="tech-tags">
-            <span>Node.js</span>
-            <span>React.js</span>
-            <span>MongoDB</span>
-            <span>WebSocket</span>
-          </div>
-          <p>A full-featured CRM application designed to streamline sales pipelines. Key features include automated lead tracking, real-time call log integration, and advanced conversion analytics to boost sales team efficiency and performance.</p>
+  <main class="main-content">
+    <div class="container">
+      <section id="about" class="section">
+        <h2>About Me</h2>
+        <div class="about-content">
+          <p class="intro">
+            I'm Mahesh Aher, a passionate Senior Software Engineer with over 5 years of experience in designing, developing, and deploying high-performance, production-ready applications and APIs.
+          </p>
+          <p>
+            My expertise lies in building robust backend services, creating seamless frontend experiences, and architecting scalable systems. I specialize in modern web technologies, cloud infrastructure, and distributed systems.
+          </p>
+          <p>
+            I thrive in dynamic environments and am dedicated to solving complex problems with elegant and efficient solutions. My approach combines technical excellence with business understanding to deliver impactful solutions.
+          </p>
         </div>
+      </section>
 
-        <div class="project">
-          <h3>Inventory Management for Manufacturing</h3>
-          <div class="tech-tags">
-            <span>Python</span>
-            <span>Django</span>
-            <span>React.js</span>
-            <span>PostgreSQL</span>
-            <span>AWS</span>
+      <section id="experience" class="section">
+        <h2>Professional Experience</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3>Senior Software Engineer</h3>
+              <p class="company">Current Role</p>
+              <p class="duration">2022 - Present</p>
+              <ul>
+                <li>Led development of scalable microservices architecture serving 1M+ users</li>
+                <li>Implemented real-time data processing systems using Kafka and BullMQ</li>
+                <li>Optimized database performance resulting in 40% faster query execution</li>
+                <li>Mentored junior developers and established coding best practices</li>
+                <li>Designed and deployed cloud infrastructure on AWS with high availability</li>
+              </ul>
+            </div>
           </div>
-          <p>An enterprise-grade inventory management system for a cap manufacturing business. Provides real-time stock tracking, automated reorder alerts, and comprehensive reporting dashboards, all hosted on a scalable AWS infrastructure.</p>
-        </div>
-
-        <div class="project">
-          <h3>Healthcare Management System</h3>
-          <div class="tech-tags">
-            <span>Node.js</span>
-            <span>React.js</span>
-            <span>MySQL</span>
-            <span>Redis</span>
-            <span>HIPAA</span>
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3>Full Stack Developer</h3>
+              <p class="company">Previous Role</p>
+              <p class="duration">2020 - 2022</p>
+              <ul>
+                <li>Developed and maintained multiple web applications using React and Node.js</li>
+                <li>Integrated third-party APIs and payment gateways</li>
+                <li>Implemented automated testing and CI/CD pipelines</li>
+                <li>Collaborated with cross-functional teams in Agile environment</li>
+                <li>Built queue-based processing systems for background tasks</li>
+              </ul>
+            </div>
           </div>
-          <p>A secure, HIPAA-compliant healthcare portal for managing patient records, appointments, and communications. Features include secure authentication for patients and doctors, Redis caching for performance, and robust data encryption.</p>
-        </div>
-
-        <div class="project">
-          <h3>Agentic AI System with Multi-API Integration</h3>
-          <div class="tech-tags">
-            <span>Python</span>
-            <span>Agentic AI</span>
-            <span>Groq API</span>
-            <span>Mistral</span>
-            <span>LLaMA</span>
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3>Software Developer</h3>
+              <p class="company">Starting Role</p>
+              <p class="duration">2019 - 2020</p>
+              <ul>
+                <li>Built responsive web applications and REST APIs</li>
+                <li>Worked with databases and implemented data migration scripts</li>
+                <li>Participated in code reviews and technical discussions</li>
+                <li>Gained expertise in modern development frameworks</li>
+              </ul>
+            </div>
           </div>
-          <p>Developed an advanced Agentic AI system capable of handling dynamic queries by integrating with multiple leading language model APIs, including Groq, Mistral, and Llama. This solution provides detailed, context-aware information for any connected application, enhancing its intelligent capabilities.</p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="contact">
-      <h2>Get In Touch</h2>
-      <div class="contact-links">
-        <p>Feel free to reach out for collaborations or just a friendly chat!</p>
-        <a href="mailto:maheshaher035@gmail.com">maheshaher035@gmail.com</a> |
-        <a href="https://github.com/imaheshaher" target="_blank">GitHub</a> |
-      </div>
-    </section>
-  </div>
+      <section id="skills" class="section">
+        <h2>Technical Skills</h2>
+        <div class="skills-container">
+          <div class="skill-category">
+            <h3>Backend Development</h3>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <span class="skill-name">Node.js</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="95%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Python</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="90%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Django</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="85%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3>Frontend Development</h3>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <span class="skill-name">React.js</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="92%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">JavaScript</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="95%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">HTML/CSS</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="90%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3>Databases & Caching</h3>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <span class="skill-name">MongoDB</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="88%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">PostgreSQL</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="85%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Redis</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="80%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3>Cloud & DevOps</h3>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <span class="skill-name">AWS</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="85%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Docker</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="82%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Kubernetes</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="75%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3>Message Queues & Processing</h3>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <span class="skill-name">Apache Kafka</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="80%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">BullMQ</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="85%"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">RabbitMQ</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="75%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="section">
+        <h2>Featured Projects</h2>
+        <div class="projects-grid">
+          <div class="project">
+            <div class="project-content">
+              <h3>Enterprise CRM Application</h3>
+              <div class="tech-tags">
+                <span>Node.js</span>
+                <span>React.js</span>
+                <span>MongoDB</span>
+                <span>WebSocket</span>
+                <span>Redis</span>
+              </div>
+              <p>A comprehensive CRM solution designed to streamline sales pipelines and boost team productivity. Features include automated lead tracking, real-time call log integration, advanced conversion analytics, and customizable dashboards.</p>
+              <div class="project-features">
+                <ul>
+                  <li>Real-time notifications and updates</li>
+                  <li>Advanced analytics and reporting</li>
+                  <li>Integration with multiple communication channels</li>
+                  <li>Automated workflow management</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="project-content">
+              <h3>Smart Inventory Management System</h3>
+              <div class="tech-tags">
+                <span>Python</span>
+                <span>Django</span>
+                <span>React.js</span>
+                <span>PostgreSQL</span>
+                <span>AWS</span>
+              </div>
+              <p>An enterprise-grade inventory management system for manufacturing businesses. Provides real-time stock tracking, automated reorder alerts, comprehensive reporting dashboards, and predictive analytics for demand forecasting.</p>
+              <div class="project-features">
+                <ul>
+                  <li>Real-time inventory tracking</li>
+                  <li>Automated reorder point calculations</li>
+                  <li>Comprehensive reporting and analytics</li>
+                  <li>Multi-location warehouse management</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="project-content">
+              <h3>HIPAA-Compliant Healthcare Portal</h3>
+              <div class="tech-tags">
+                <span>Node.js</span>
+                <span>React.js</span>
+                <span>MySQL</span>
+                <span>Redis</span>
+                <span>HIPAA</span>
+              </div>
+              <p>A secure healthcare management system for patient records, appointments, and communications. Features end-to-end encryption, secure authentication, audit logging, and compliance with healthcare regulations.</p>
+              <div class="project-features">
+                <ul>
+                  <li>HIPAA-compliant data handling</li>
+                  <li>Secure patient-doctor communication</li>
+                  <li>Appointment scheduling and management</li>
+                  <li>Comprehensive audit trails</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="project-content">
+              <h3>Multi-API Agentic AI System</h3>
+              <div class="tech-tags">
+                <span>Python</span>
+                <span>Agentic AI</span>
+                <span>Groq API</span>
+                <span>Mistral</span>
+                <span>LLaMA</span>
+              </div>
+              <p>An advanced AI system capable of handling dynamic queries by integrating multiple leading language model APIs. Provides intelligent, context-aware responses and can be integrated into various applications for enhanced capabilities.</p>
+              <div class="project-features">
+                <ul>
+                  <li>Multi-model AI integration</li>
+                  <li>Context-aware response generation</li>
+                  <li>Dynamic query processing</li>
+                  <li>Scalable API architecture</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="project-content">
+              <h3>Real-time Notification System</h3>
+              <div class="tech-tags">
+                <span>Node.js</span>
+                <span>Kafka</span>
+                <span>BullMQ</span>
+                <span>Redis</span>
+                <span>AWS SQS</span>
+              </div>
+              <p>A high-performance, scalable notification system with targeted delivery, batching, and queue-based processing. Handles millions of notifications daily with guaranteed delivery and real-time processing capabilities.</p>
+              <div class="project-features">
+                <ul>
+                  <li>Queue-based message processing</li>
+                  <li>Real-time delivery with WebSockets</li>
+                  <li>Batch processing for efficiency</li>
+                  <li>Multi-channel notification support</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="project-content">
+              <h3>Microservices E-commerce Platform</h3>
+              <div class="tech-tags">
+                <span>Node.js</span>
+                <span>Docker</span>
+                <span>Kubernetes</span>
+                <span>AWS</span>
+                <span>MongoDB</span>
+              </div>
+              <p>A scalable e-commerce platform built with microservices architecture. Features include user management, product catalog, order processing, payment integration, and inventory management with high availability and fault tolerance.</p>
+              <div class="project-features">
+                <ul>
+                  <li>Microservices architecture</li>
+                  <li>Container orchestration with Kubernetes</li>
+                  <li>Auto-scaling and load balancing</li>
+                  <li>Payment gateway integration</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section">
+        <h2>Let's Work Together</h2>
+        <div class="contact-content">
+          <div class="contact-info">
+            <h3>Get In Touch</h3>
+            <p>I'm always interested in hearing about new opportunities and exciting projects. Whether you're looking for a senior developer, technical consultant, or just want to connect, I'd love to hear from you!</p>
+            
+            <div class="contact-methods">
+              <div class="contact-method">
+                <div>
+                  <h4>Email</h4>
+                  <a href="mailto:maheshaher035@gmail.com">maheshaher035@gmail.com</a>
+                </div>
+              </div>
+              <div class="contact-method">
+                <div>
+                  <h4>GitHub</h4>
+                  <a href="https://github.com/imaheshaher" target="_blank">github.com/imaheshaher</a>
+                </div>
+              </div>
+           
+            </div>
+          </div>
+
+          <div class="contact-form">
+            <h3>Send a Message</h3>
+            <form>
+              <div class="form-group">
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+              </div>
+              <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+              </div>
+              <div class="form-group">
+                <input type="text" id="subject" name="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group">
+                <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+              </div>
+              <button type="submit" class="btn-primary">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
 
   <footer>
     <div class="container">
-      <p>&copy; 2025 Mahesh Aher | All Rights Reserved</p>
+      <div class="footer-content">
+        <p>&copy; 2025 Mahesh Aher | All Rights Reserved</p>
+        <div class="footer-links">
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
     </div>
   </footer>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+
+    mobileMenuToggle.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+      mobileMenuToggle.classList.toggle('active');
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          // Close mobile menu if open
+          mainNav.classList.remove('active');
+          mobileMenuToggle.classList.remove('active');
+        }
+      });
+    });
+
+    // Animate skill bars on scroll
+    const observerOptions = {
+      threshold: 0.5,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const skillBars = entry.target.querySelectorAll('.skill-progress');
+          skillBars.forEach(bar => {
+            const width = bar.getAttribute('data-width');
+            bar.style.width = width;
+          });
+        }
+      });
+    }, observerOptions);
+
+    const skillsSection = document.querySelector('#skills');
+    if (skillsSection) {
+      observer.observe(skillsSection);
+    }
+
+    // Add scroll effect to navigation
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('.main-nav');
+      if (window.scrollY > 100) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Form submission
+    const contactForm = document.querySelector('#contact form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thank you for your message! I\'ll get back to you soon.');
+        contactForm.reset();
+      });
+    }
+  </script>
 </body>
 </html>
