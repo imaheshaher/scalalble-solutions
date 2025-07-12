@@ -4,64 +4,149 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scalable System Design Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #ecf0f1;
+            --text-color: #34495e;
+            --card-bg-color: #ffffff;
+            --header-bg-color: #34495e;
+            --header-text-color: #ffffff;
+            --link-color: #3498db;
+            --link-hover-color: #2980b9;
+            --border-color: #dcdfe2;
+        }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            font-family: 'Roboto', sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+        }
+        .container {
             max-width: 960px;
             margin: 0 auto;
             padding: 20px;
         }
-        h1, h2 {
-            border-bottom: 1px solid #eaecef;
-            padding-bottom: 0.3em;
+        header {
+            background: var(--header-bg-color);
+            color: var(--header-text-color);
+            padding: 20px 0;
+            border-bottom: 5px solid var(--secondary-color);
         }
-        .container {
-            padding: 20px;
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        header nav a {
+            color: var(--header-text-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        header nav a:hover {
+            background-color: var(--secondary-color);
+        }
+        .main-content {
+            padding: 40px 0;
+        }
+        .main-content h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+        }
+        .main-content h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary-color);
+            margin: 10px auto 0;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
         .card {
-            border: 1px solid #d1d5da;
-            border-radius: 6px;
-            padding: 16px;
-            margin-bottom: 16px;
-            transition: box-shadow 0.3s ease-in-out;
+            background: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .card:hover {
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
         .card h3 {
             margin-top: 0;
+            color: var(--secondary-color);
+            font-size: 1.4rem;
         }
         .card a {
             text-decoration: none;
-            color: #0366d6;
-            font-weight: bold;
+            color: inherit;
         }
         .card p {
             margin-bottom: 0;
+            color: var(--text-color);
+        }
+        footer {
+            background: var(--header-bg-color);
+            color: var(--header-text-color);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Scalable System Design Solutions</h1>
-        <p>Welcome to the collection of scalable system design solutions. Browse the topics below to learn more about building robust and scalable applications.</p>
+    <header>
+        <div class="container">
+            <h1>System Design Solutions</h1>
+            <nav>
+                <a href="portfolio.html">View My Portfolio</a>
+            </nav>
+        </div>
+    </header>
 
+    <div class="container main-content">
         <h2>Available Topics</h2>
-
-        <div class="card">
-            <h3><a href="documentation/hybrid-real-time-updates.html">Hybrid Real-Time Update Strategy for CRM</a></h3>
-            <p>An approach for implementing real-time data sync using a hybrid of WebSockets and REST APIs to ensure a responsive user experience.</p>
+        <div class="card-grid">
+            <div class="card">
+                <a href="documentation/hybrid-real-time-updates.html">
+                    <h3>Hybrid Real-Time Update Strategy for CRM</h3>
+                    <p>An approach for implementing real-time data sync using a hybrid of WebSockets and REST APIs to ensure a responsive user experience.</p>
+                </a>
+            </div>
+            <div class="card">
+                <a href="documentation/notification-system.html">
+                    <h3>Complete Notification System Documentation</h3>
+                    <p>A high-performance, scalable notification system with targeted delivery, batching, and queue-based processing.</p>
+                </a>
+            </div>
+            <!-- Add more cards here as new solutions are documented -->
         </div>
-
-        <div class="card">
-            <h3><a href="documentation/notification-system.html">Complete Notification System Documentation</a></h3>
-            <p>A high-performance, scalable notification system with targeted delivery, batching, and queue-based processing.</p>
-        </div>
-
-        <!-- Add more cards here as new solutions are documented -->
-
     </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Mahesh Aher | All Rights Reserved</p>
+        </div>
+    </footer>
 </body>
 </html>
